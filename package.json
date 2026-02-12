@@ -1,0 +1,207 @@
+{
+  "name": "proxmox-vs-code",
+  "displayName": "Proxmox VS Code",
+  "description": "A plugin to enable vscode to interact with proxmox servers to sping up services to assist with development ",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:proxmox-vs-code.helloWorld",
+    "onCommand:proxmox-vs-code.listNodes",
+    "onCommand:proxmox-vs-code.listVms",
+    "onCommand:proxmox-vs-code.vmAction",
+    "onCommand:proxmox-vs-code.snapshotActions",
+    "onCommand:proxmox-vs-code.createSnapshot",
+    "onCommand:proxmox-vs-code.restoreSnapshot",
+    "onCommand:proxmox-vs-code.refreshExplorer",
+    "onCommand:proxmox-vs-code.treeStartVm",
+    "onCommand:proxmox-vs-code.treeStopVm",
+    "onCommand:proxmox-vs-code.treeRestartVm",
+    "onCommand:proxmox-vs-code.treeCreateSnapshot",
+    "onCommand:proxmox-vs-code.treeRestoreSnapshot",
+    "onCommand:proxmox-vs-code.setApiToken",
+    "onCommand:proxmox-vs-code.clearApiToken",
+    "onCommand:proxmox-vs-code.testConnection",
+    "onCommand:proxmox-vs-code.resetInsecureWarning"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "proxmox-vs-code.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "proxmox-vs-code.listNodes",
+        "title": "Proxmox: List Nodes"
+      },
+      {
+        "command": "proxmox-vs-code.listVms",
+        "title": "Proxmox: List VMs"
+      },
+      {
+        "command": "proxmox-vs-code.vmAction",
+        "title": "Proxmox: VM Actions"
+      },
+      {
+        "command": "proxmox-vs-code.snapshotActions",
+        "title": "Proxmox: Snapshot Actions"
+      },
+      {
+        "command": "proxmox-vs-code.createSnapshot",
+        "title": "Proxmox: Create Snapshot"
+      },
+      {
+        "command": "proxmox-vs-code.restoreSnapshot",
+        "title": "Proxmox: Restore Snapshot"
+      },
+      {
+        "command": "proxmox-vs-code.refreshExplorer",
+        "title": "Proxmox: Refresh Explorer"
+      },
+      {
+        "command": "proxmox-vs-code.treeStartVm",
+        "title": "Proxmox: Start VM"
+      },
+      {
+        "command": "proxmox-vs-code.treeStopVm",
+        "title": "Proxmox: Stop VM"
+      },
+      {
+        "command": "proxmox-vs-code.treeRestartVm",
+        "title": "Proxmox: Restart VM"
+      },
+      {
+        "command": "proxmox-vs-code.treeCreateSnapshot",
+        "title": "Proxmox: Create Snapshot"
+      },
+      {
+        "command": "proxmox-vs-code.treeRestoreSnapshot",
+        "title": "Proxmox: Restore Snapshot"
+      },
+      {
+        "command": "proxmox-vs-code.setApiToken",
+        "title": "Proxmox: Set API Token"
+      },
+      {
+        "command": "proxmox-vs-code.clearApiToken",
+        "title": "Proxmox: Clear API Token"
+      },
+      {
+        "command": "proxmox-vs-code.testConnection",
+        "title": "Proxmox: Test Connection"
+      },
+      {
+        "command": "proxmox-vs-code.resetInsecureWarning",
+        "title": "Proxmox: Reset Insecure Warning"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "proxmoxExplorerView",
+          "name": "Proxmox"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "proxmox-vs-code.treeStartVm",
+          "when": "view == proxmoxExplorerView && viewItem == proxmox.vm",
+          "group": "proxmox@1"
+        },
+        {
+          "command": "proxmox-vs-code.treeStopVm",
+          "when": "view == proxmoxExplorerView && viewItem == proxmox.vm",
+          "group": "proxmox@2"
+        },
+        {
+          "command": "proxmox-vs-code.treeRestartVm",
+          "when": "view == proxmoxExplorerView && viewItem == proxmox.vm",
+          "group": "proxmox@3"
+        },
+        {
+          "command": "proxmox-vs-code.treeCreateSnapshot",
+          "when": "view == proxmoxExplorerView && viewItem == proxmox.vm",
+          "group": "proxmox@4"
+        },
+        {
+          "command": "proxmox-vs-code.treeRestoreSnapshot",
+          "when": "view == proxmoxExplorerView && viewItem == proxmox.snapshot",
+          "group": "proxmox@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Proxmox",
+      "properties": {
+        "proxmox.host": {
+          "type": "string",
+          "default": "",
+          "description": "Proxmox API base URL, for example https://proxmox.example:8006."
+        },
+        "proxmox.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "Deprecated: use Proxmox: Set API Token to store the token securely."
+        },
+        "proxmox.allowInsecure": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow self-signed TLS certificates when connecting to Proxmox."
+        },
+        "proxmox.confirmStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Require confirmation before starting a VM or container."
+        },
+        "proxmox.confirmStop": {
+          "type": "boolean",
+          "default": true,
+          "description": "Require confirmation before stopping a VM or container."
+        },
+        "proxmox.confirmRestart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Require confirmation before restarting a VM or container."
+        },
+        "proxmox.snapshotTemplate": {
+          "type": "string",
+          "default": "snapshot-YYYYMMDD-HHMM",
+          "description": "Snapshot name template for auto-created snapshots, for example snapshot-YYYYMMDD-HHMM."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "proxmox-vs-code.resetInsecureWarning",
+        "key": "ctrl+alt+p ctrl+r",
+        "mac": "cmd+alt+p cmd+r",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.109.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.54.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
